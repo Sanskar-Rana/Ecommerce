@@ -1,8 +1,9 @@
+from app.models import Customer
 from django import forms
 from django.contrib.auth import password_validation
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField, PasswordChangeForm, PasswordResetForm, SetPasswordForm
 from django.contrib.auth.models import User
-from django.forms import widgets
+from django.forms import fields, widgets
 from django.utils.translation import gettext, gettext_lazy as _
 
 class CustomerRegistrationForm(UserCreationForm):
@@ -81,3 +82,15 @@ class SetPasswordRForm(SetPasswordForm):
             
         }
     )) 
+
+class CustomerProfileForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['name', 'locality', 'city', 'state', 'zipcode', 'contactNumber']
+        widgets = {'name':forms.TextInput(attrs={'class':'form-control'}),
+        'locality':forms.TextInput(attrs={'class':'form-control'}),
+        'city':forms.TextInput(attrs={'class':'form-control'}),
+        'state' : forms.Select(attrs={'class':'form-control'}),
+        'contactNumber' : forms.NumberInput(attrs={'class':'form-control'}),
+        'zipcode': forms.NumberInput(attrs={'class':'form-control'})
+        }
