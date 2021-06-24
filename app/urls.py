@@ -1,4 +1,4 @@
-from app.forms import LoginForm,PasswordCForm
+from app.forms import LoginForm,PasswordCForm, PasswordRForm, SetPasswordRForm
 from django.urls import path
 from app import views
 from django.contrib.auth import authenticate, views as auth_views
@@ -15,8 +15,15 @@ urlpatterns = [
     path('mobile/<slug:data>', views.mobile, name='mobileData'),
     path('accounts/login/', auth_views.LoginView.as_view(template_name = 'app/login.html', authentication_form=LoginForm), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
+   
+   
     path('passwordchange/', auth_views.PasswordChangeView.as_view(template_name = 'app/changepassword.html', form_class = PasswordCForm, success_url='/passwordchangedone/'), name='changepassword'),
     path('passwordchangedone/',auth_views.PasswordChangeDoneView.as_view(template_name = 'app/passwordchangedone.html'), name='passwordchangedone'),
+    path('password-reset/', auth_views.PasswordResetView.as_view(template_name='app/password_reset.html', form_class= PasswordRForm), name='password_reset'),
+    path('password-reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='app/password_reset_done.html'), name='password_reset_done'),
+    path('password-confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='app/password_reset_confirm.html', form_class= SetPasswordRForm), name='password_reset_confirm'),
+    path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='app/password_reset_complete.html'), name='password_reset_complete'),
+   
     path('registration/', views.CustomerRegistrationView.as_view(), name='customerregistration'),
     path('checkout/', views.checkout, name='checkout'),
 ]
