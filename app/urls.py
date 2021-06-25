@@ -13,6 +13,9 @@ urlpatterns = [
     path('miuscart/', views.minus_cart),
     path('removeItem/', views.removeItem),
 
+    path('checkout/', views.checkout, name='checkout'),
+    path('paymentdone/', views.payment_done, name='paymentdone'),
+
     path('buy/', views.buy_now, name='buy-now'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
     path('address/', views.address, name='address'),
@@ -31,5 +34,5 @@ urlpatterns = [
     path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='app/password_reset_complete.html'), name='password_reset_complete'),
    
     path('registration/', views.CustomerRegistrationView.as_view(), name='customerregistration'),
-    path('checkout/', views.checkout, name='checkout'),
+  
 ]
